@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ToggleButton;
 
@@ -26,13 +27,14 @@ public class movieList extends AppCompatActivity {
         tbFilter = findViewById(R.id.tbFilter);
         lv = findViewById(R.id.lv);
         movieList = new ArrayList<>();
+
         filteredMovieList = new ArrayList<>();
 
-        DBHelper db = new DBHelper(getApplicationContext());
+        DBHelper db = new DBHelper(movieList.this);
         movieList = db.getMovies();
         db.close();
 
-        adapter = new CustomAdapter(this, R.layout.row, movieList);
+        adapter = new CustomAdapter(movieList.this, R.layout.row, movieList);
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
