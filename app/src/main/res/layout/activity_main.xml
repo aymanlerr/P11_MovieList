@@ -2,65 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background_color"
+    android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tvTitle"
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/movieTitle" />
+        android:layout_marginBottom="5dp">
 
-    <EditText
-        android:id="@+id/etTitle"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/movieTitle"
+            android:inputType="text"
+            android:textColorHint="#546E7A" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/inputMovieTitle"
-        android:inputType="text"
-        android:minHeight="48dp" />
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
 
-    <TextView
-        android:id="@+id/tvGenre"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:layout_marginEnd="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputGenre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/movieGenre"
+                android:inputType="text"
+                android:textColorHint="#546E7A" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputyear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/movieYear"
+                android:inputType="number"
+                android:textColorHint="#546E7A" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/movieGenre" />
+        android:hint="@string/movieRating"
+        android:layout_marginBottom="5dp">
 
-    <EditText
-        android:id="@+id/etGenre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/inputMovieGenre"
-        android:inputType="text"
-        android:minHeight="48dp" />
-
-    <TextView
-        android:id="@+id/tvYear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/movieYear" />
-
-    <EditText
-        android:id="@+id/etYear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/inputMovieYear"
-        android:inputType="number"
-        android:minHeight="48dp" />
-
-    <TextView
-        android:id="@+id/tvRating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/movieRating" />
-
-    <Spinner
-        android:id="@+id/spinnerRating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/spinnerRating"
-        android:minHeight="48dp" />
+        <AutoCompleteTextView
+            android:id="@+id/ratingMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textColorHint="#546E7A" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,18 +81,21 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnUpdate"
+            android:id="@+id/btnInsert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btnInsert"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp"/>
 
         <Button
-            android:id="@+id/btnDelete"
+            android:id="@+id/btnShowList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btnShowList"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_marginStart="5dp"/>
     </LinearLayout>
 
 </LinearLayout>

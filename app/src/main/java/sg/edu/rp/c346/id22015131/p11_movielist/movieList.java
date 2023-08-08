@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class movieList extends AppCompatActivity {
 
-    ToggleButton tbFilter;
+    Button btnAll, btnPg13, btnBack;
     ListView lv;
     ArrayList<Movie> movieList, filteredMovieList;
     CustomAdapter adapter;
@@ -24,9 +24,11 @@ public class movieList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_list);
 
-        tbFilter = findViewById(R.id.tbFilter);
+        btnAll = findViewById(R.id.btnAll);
+        btnPg13 = findViewById(R.id.btnPg13);
         lv = findViewById(R.id.lv);
         movieList = new ArrayList<>();
+        btnBack = findViewById(R.id.btnBack);
 
         filteredMovieList = new ArrayList<>();
 
@@ -38,15 +40,23 @@ public class movieList extends AppCompatActivity {
         lv.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        tbFilter.setOnClickListener(v -> {
-            boolean isChecked = tbFilter.isChecked();
-            if (isChecked) {
-                filteredMovieList = db.getFilteredMovies();
-                adapter = new CustomAdapter(this, R.layout.row, filteredMovieList);
-            } else {
-                movieList = db.getMovies();
-                adapter = new CustomAdapter(this, R.layout.row, movieList);
-            }
+        btnBack.setOnClickListener(v -> {
+            finish();
+            Intent intent = new Intent(movieList.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+        btnAll.setOnClickListener(v -> {
+            movieList = db.getMovies();
+            adapter = new CustomAdapter(this, R.layout.row, movieList);
+            db.close();
+            lv.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        });
+
+        btnPg13.setOnClickListener(v -> {
+            filteredMovieList = db.getFilteredMovies();
+            adapter = new CustomAdapter(this, R.layout.row, filteredMovieList);
             db.close();
             lv.setAdapter(adapter);
             adapter.notifyDataSetChanged();

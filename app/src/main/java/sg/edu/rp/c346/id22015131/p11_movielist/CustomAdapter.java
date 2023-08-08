@@ -8,9 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -48,19 +46,19 @@ public class CustomAdapter extends ArrayAdapter {
         String img;
         String stringRating = currentMovie.getRating();
         if (stringRating.equalsIgnoreCase("G")) {
-            img = "https://images.immediate.co.uk/production/volatile/sites/28/2019/02/16277-28797ce.jpg?quality=90&webp=true&fit=584,471";
+            img = "https://imdaonline.imda.gov.sg/classification/images/Rating_G.png";
         } else if (stringRating.equalsIgnoreCase("PG")) {
-            img = "https://images.immediate.co.uk/production/volatile/sites/28/2019/02/16278-28797ce.jpg?quality=90&webp=true&fit=584,471";
+            img = "https://imdaonline.imda.gov.sg/classification/images/Rating_PG.png";
         } else if (stringRating.equalsIgnoreCase("PG13")) {
-            img = "https://images.immediate.co.uk/production/volatile/sites/28/2019/02/16280-8d5bdb7.jpg?quality=90&webp=true&fit=320,320";
+            img = "https://imdaonline.imda.gov.sg/classification/images/Rating_PG13.png";
         } else if (stringRating.equalsIgnoreCase("NC16")) {
-            img = "https://images.immediate.co.uk/production/volatile/sites/28/2019/02/16281-8d5bdb7.jpg?quality=90&webp=true&fit=490,490";
+            img = "https://imdaonline.imda.gov.sg/classification/images/Rating_NC16.png";
         } else if (stringRating.equalsIgnoreCase("M18")) {
-            img = "https://images.immediate.co.uk/production/volatile/sites/28/2019/02/16282-05127b2.jpg?quality=90&webp=true&fit=300,300";
+            img = "https://imdaonline.imda.gov.sg/classification/images/Rating_M18.png";
         } else {
-            img = "https://images.immediate.co.uk/production/volatile/sites/28/2019/02/16283-05127b2.jpg?quality=90&webp=true&fit=515,424";
+            img = "https://imdaonline.imda.gov.sg/classification/images/Rating_R21.png";
         }
-        Picasso.with(parent_context).load(img).into(ivRating);
+        Glide.with(parent_context).load(img).fitCenter().into(ivRating);
 
         return rowView;
     }

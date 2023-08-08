@@ -1,37 +1,59 @@
 package sg.edu.rp.c346.id22015131.p11_movielist;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import java.util.Objects;
 
 public class editMovie extends AppCompatActivity {
 
     EditText etId, etTitle, etGenre, etYear;
-    Spinner spinnerRating;
+    AutoCompleteTextView ratingMenu;
     Button btnUpdate, btnDelete, btnCancel;
     Movie movie;
+    String rating = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_movie);
 
+        Intent a = getIntent();
+        movie = (Movie) a.getSerializableExtra("movie");
+
         etId = findViewById(R.id.etId);
         etTitle = findViewById(R.id.etTitle);
         etGenre = findViewById(R.id.etGenre);
         etYear = findViewById(R.id.etYear);
-        spinnerRating = findViewById(R.id.spinnerRating);
         btnUpdate = findViewById(R.id.btnUpdate);
         btnDelete = findViewById(R.id.btnDelete);
-        btnCancel = findViewById(R.id.btnCancel);
+        btnCancel = findViewById(R.id.btnBack);
 
-        Intent i = getIntent();
-        movie = (Movie) i.getSerializableExtra("movie");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, RATINGS);
+        ratingMenu = (AutoCompleteTextView) findViewById(R.id.ratingMenu);
+        ratingMenu.setAdapter(adapter);
+        int genrePos = 0;
+        for (int i = 0; i < RATINGS.length; i++) {
+            if (Objects.equals(movie.getRating(), RATINGS[i])) {
+                genrePos = i;
+            }
+        }
+
+        ratingMenu.setText(adapter.getItem(genrePos), false);
+        ratingMenu.setOnItemClickListener((parent, view, position, id) -> {
+            rating = parent.getItemAtPosition(position).toString();
+        });
 
         etId.setText(movie.getId()+"");
         etId.setEnabled(false);
@@ -39,25 +61,14 @@ public class editMovie extends AppCompatActivity {
         etTitle.setText(movie.getTitle());
         etYear.setText(movie.getYear()+"");
 
-        String getRating = movie.getRating();
-        int checkRating = -99;
-        if (getRating.equalsIgnoreCase("G")) {
-            checkRating = 0;
-        } else if (getRating.equalsIgnoreCase("PG")) {
-            checkRating = 1;
-        } else if (getRating.equalsIgnoreCase("PG13")) {
-            checkRating = 2;
-        } else if (getRating.equalsIgnoreCase("NC16")) {
-            checkRating = 3;
-        } else if (getRating.equalsIgnoreCase("M18")) {
-            checkRating = 4;
-        } else if (getRating.equalsIgnoreCase("R21")) {
-            checkRating = 5;
-        }
-        spinnerRating.setSelection(checkRating);
-
         btnCancel.setOnClickListener(v -> {
-            finish();
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle("Danger")
+                    .setMessage("Are you sure you want to delete the movie\n" + movie.getTitle())
+                    .setPositiveButton("Don't discard changes", null)
+                    .setNegativeButton("Discard changes", (dialog, which) -> {
+                        finish();
+                    }).show();
         });
 
         btnUpdate.setOnClickListener(v -> {
@@ -65,7 +76,6 @@ public class editMovie extends AppCompatActivity {
                 String title = etTitle.getText().toString();
                 String genre = etGenre.getText().toString();
                 int year = Integer.parseInt(etYear.getText().toString());
-                String rating = spinnerRating.getSelectedItem().toString();
 
                 DBHelper db = new DBHelper(editMovie.this);
                 movie.setMovieDetails(title, genre, year, rating);
@@ -79,14 +89,24 @@ public class editMovie extends AppCompatActivity {
         });
 
         btnDelete.setOnClickListener(v -> {
-            DBHelper db = new DBHelper(editMovie.this);
-            db.deleteMovie(movie.getId());
-            finish();
-            Intent intent = new Intent(editMovie.this, movieList.class);
-            startActivity(intent);
-            Toast.makeText(getApplicationContext(), "Movie deleted", Toast.LENGTH_SHORT).show();
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle("Danger")
+                    .setMessage("Are you sure you want to delete the movie\n" + movie.getTitle())
+                    .setPositiveButton("Cancel", null)
+                    .setNegativeButton("Delete", (dialog, which) -> {
+                        DBHelper db = new DBHelper(editMovie.this);
+                        db.deleteMovie(movie.getId());
+                        finish();
+                        Intent intent = new Intent(editMovie.this, movieList.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "Movie deleted", Toast.LENGTH_SHORT).show();
+                    }).show();
         });
     }
+
+    private static final String[] RATINGS = new String[] {
+            "PG", "PG13", "NC16", "M18", "R21"
+    };
     private boolean isEmpty() {
         String title = etTitle.getText().toString();
         String genre = etGenre.getText().toString();

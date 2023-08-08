@@ -15,6 +15,10 @@
     <string name="inputMovieTitle">Enter movie title here</string>
     <string name="inputMovieGenre">Enter genre here</string>
     <string name="inputMovieYear">Enter year of release here</string>
+    <string name="textview">TextView</string>
+    <string name="allMovie">Show all movies</string>
+    <string name="allPg13Movie">Show all PG-13 movies</string>
+    <string name="back">Back</string>
     <string-array name="spinnerRating">
         <item>G</item>
         <item>PG</item>

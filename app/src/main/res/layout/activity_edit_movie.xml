@@ -2,104 +2,127 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background_color"
+    android:padding="10dp">
 
 
-    <TextView
-        android:id="@+id/tvId"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/movieId" />
+        android:layout_marginBottom="5dp">
 
-    <EditText
-        android:id="@+id/etId"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/movieId"
+            android:inputType="text"
+            android:textColorHint="#546E7A"
+            android:enabled="false"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:text="@string/movieId" />
+        android:layout_marginBottom="5dp">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/movieTitle" />
-
-    <EditText
-        android:id="@+id/etTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/inputMovieTitle"
-        android:inputType="text"
-        android:minHeight="48dp" />
-
-    <TextView
-        android:id="@+id/tvGenre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/movieGenre" />
-
-    <EditText
-        android:id="@+id/etGenre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/inputMovieGenre"
-        android:inputType="text"
-        android:minHeight="48dp" />
-
-    <TextView
-        android:id="@+id/tvYear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/movieYear" />
-
-    <EditText
-        android:id="@+id/etYear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/inputMovieYear"
-        android:inputType="number"
-        android:minHeight="48dp" />
-
-    <TextView
-        android:id="@+id/tvRating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/movieRating" />
-
-    <Spinner
-        android:id="@+id/spinnerRating"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/spinnerRating"
-        android:minHeight="48dp" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/movieTitle"
+            android:inputType="text"
+            android:textColorHint="#546E7A" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
 
-        <Button
-            android:id="@+id/btnUpdate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/btnUpdate" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:layout_marginEnd="5dp">
 
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etGenre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/movieGenre"
+                android:inputType="text"
+                android:textColorHint="#546E7A" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="@string/btnDELETE" />
+            android:layout_marginStart="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/movieYear"
+                android:inputType="number"
+                android:textColorHint="#546E7A" />
+        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnCancel"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnCancel" />
+        android:hint="@string/movieRating"
+        android:layout_marginBottom="5dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/ratingMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:textColorHint="#546E7A" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:text="@string/btnUpdate" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                style="@style/Widget.Material3.Button.IconButton.Filled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="@string/btnDELETE" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnBack"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btnCancel" />
+    </LinearLayout>
 
 </LinearLayout>
